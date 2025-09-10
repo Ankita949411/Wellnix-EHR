@@ -1,0 +1,20 @@
+{
+  "name": "wellnix-ehr-emr-root",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "concurrently \"npm run start:dev --prefix backend\" \"npm start --prefix frontend\""
+  },
+  "dependencies": {
+    "@nestjs/jwt": "^11.0.0",
+    "bcrypt": "^6.0.0",
+    "class-validator": "^0.14.2",
+    "reflect-metadata": "^0.2.2"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.9",
+    "concurrently": "^9.2.1"
+  }
+}

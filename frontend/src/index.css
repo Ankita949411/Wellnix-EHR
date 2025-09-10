@@ -1,0 +1,198 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Healthcare EHR Design System - Professional Medical Theme */
+
+@layer base {
+  :root {
+    --background: 240 15% 97%;
+    --foreground: 210 25% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 210 25% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 25% 15%;
+
+    --primary: 210 85% 45%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 210 85% 65%;
+
+    --secondary: 150 40% 45%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 210 20% 95%;
+    --muted-foreground: 210 15% 55%;
+
+    --accent: 195 85% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 210 25% 88%;
+    --input: 210 25% 90%;
+    --ring: 210 85% 45%;
+
+    --radius: 0.75rem;
+
+    /* Healthcare specific colors */
+    --healthcare-blue: 210 85% 45%;
+    --healthcare-green: 150 40% 45%;
+    --healthcare-light-blue: 195 85% 50%;
+    --healthcare-navy: 210 50% 25%;
+    --healthcare-mint: 160 30% 85%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(
+      135deg,
+      hsl(var(--primary)),
+      hsl(var(--primary-glow))
+    );
+    --gradient-healthcare: linear-gradient(
+      135deg,
+      hsl(var(--healthcare-blue)),
+      hsl(var(--healthcare-light-blue))
+    );
+    --gradient-subtle: linear-gradient(
+      180deg,
+      hsl(var(--background)),
+      hsl(var(--muted))
+    );
+
+    /* Shadows */
+    --shadow-medical: 0 4px 20px -4px hsl(var(--primary) / 0.15);
+    --shadow-card: 0 2px 10px -2px hsl(var(--foreground) / 0.1);
+    --shadow-glow: 0 0 30px hsl(var(--primary-glow) / 0.3);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 210 25% 8%;
+    --foreground: 210 15% 92%;
+
+    --card: 210 25% 10%;
+    --card-foreground: 210 15% 92%;
+
+    --popover: 210 25% 10%;
+    --popover-foreground: 210 15% 92%;
+
+    --primary: 210 85% 55%;
+    --primary-foreground: 210 25% 8%;
+    --primary-glow: 210 85% 70%;
+
+    --secondary: 150 40% 50%;
+    --secondary-foreground: 210 25% 8%;
+
+    --muted: 210 25% 15%;
+    --muted-foreground: 210 15% 65%;
+
+    --accent: 195 85% 55%;
+    --accent-foreground: 210 25% 8%;
+
+    --destructive: 0 75% 60%;
+    --destructive-foreground: 210 25% 8%;
+
+    --border: 210 25% 20%;
+    --input: 210 25% 18%;
+    --ring: 210 85% 55%;
+
+    --healthcare-blue: 210 85% 55%;
+    --healthcare-green: 150 40% 50%;
+    --healthcare-light-blue: 195 85% 55%;
+    --healthcare-navy: 210 50% 35%;
+    --healthcare-mint: 160 30% 25%;
+
+    --gradient-primary: linear-gradient(
+      135deg,
+      hsl(var(--primary)),
+      hsl(var(--primary-glow))
+    );
+    --gradient-healthcare: linear-gradient(
+      135deg,
+      hsl(var(--healthcare-blue)),
+      hsl(var(--healthcare-light-blue))
+    );
+    --gradient-subtle: linear-gradient(
+      180deg,
+      hsl(var(--background)),
+      hsl(var(--muted))
+    );
+
+    --shadow-medical: 0 4px 20px -4px hsl(var(--primary) / 0.25);
+    --shadow-card: 0 2px 10px -2px hsl(var(--foreground) / 0.2);
+    --shadow-glow: 0 0 30px hsl(var(--primary-glow) / 0.4);
+
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+@layer components {
+  .medical-card {
+    @apply bg-card/80 backdrop-blur-sm border border-border/50 rounded-xl shadow-[var(--shadow-card)];
+  }
+
+  .medical-gradient {
+    background: var(--gradient-healthcare);
+  }
+
+  .medical-shadow {
+    box-shadow: var(--shadow-medical);
+  }
+
+  .fade-in {
+    @apply animate-[fadeIn_0.6s_ease-out];
+  }
+
+  .slide-up {
+    @apply animate-[slideUp_0.5s_ease-out];
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
