@@ -36,34 +36,43 @@ const Index = () => {
 
       {/* Hero Section */}
       <div className="container mx-auto px-6 py-20">
-        <div className="text-center max-w-4xl mx-auto mb-16">
-          <h1 className="text-5xl font-bold text-foreground mb-6 fade-in">
-            Modern Healthcare
-            <span className="block text-primary">Record Management</span>
-          </h1>
-          <p className="text-xl text-muted-foreground mb-8 slide-up">
-            Streamline patient care with our comprehensive Electronic Health
-            Records system. Secure, efficient, and designed for healthcare
-            professionals.
-          </p>
-          <div className="flex items-center justify-center gap-4 slide-up">
-            <Link to="/register">
-              <Button
-                size="lg"
-                className="medical-gradient hover:opacity-90 font-semibold text-lg px-8 py-6"
-              >
-                Start Free Trial
-              </Button>
-            </Link>
-            <Link to="/login">
-              <Button
-                size="lg"
-                variant="outline"
-                className="font-semibold text-lg px-8 py-6"
-              >
-                Sign In
-              </Button>
-            </Link>
+        <div className="flex items-center justify-between gap-12 max-w-6xl mx-auto mb-16">
+          <div className="flex-1 text-left">
+            <h1 className="text-5xl font-bold text-foreground mb-6 fade-in">
+              Modern Healthcare
+              <span className="block text-primary">Record Management</span>
+            </h1>
+            <p className="text-xl text-muted-foreground mb-8 slide-up">
+              Streamline patient care with our comprehensive Electronic Health
+              Records system. Secure, efficient, and designed for healthcare
+              professionals.
+            </p>
+            <div className="flex items-center gap-4 slide-up">
+              <Link to="/register">
+                <Button
+                  size="lg"
+                  className="medical-gradient hover:opacity-90 font-semibold text-lg px-8 py-6"
+                >
+                  Start Free Trial
+                </Button>
+              </Link>
+              <Link to="/login">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="font-semibold text-lg px-8 py-6"
+                >
+                  Sign In
+                </Button>
+              </Link>
+            </div>
+          </div>
+          <div className="hidden lg:block flex-shrink-0">
+            <img
+              src="https://images.unsplash.com/photo-1638202993928-7267aad84c31?w=500&h=600&fit=crop"
+              alt="Professional Doctor with Stethoscope"
+              className="w-96 h-96 rounded-2xl object-cover shadow-2xl"
+            />
           </div>
         </div>
 
