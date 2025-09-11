@@ -17,6 +17,8 @@ import PageNavigation from "../components/navigation/PageNavigation";
 
 const UserList: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
+  console.log(users, "users");
+
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState<number>(1);

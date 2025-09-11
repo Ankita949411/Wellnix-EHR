@@ -10,7 +10,8 @@ import {
   Stethoscope,
   Home,
   Activity,
-  Menu
+  Menu,
+  X
 } from 'lucide-react';
 
 const Sidebar: React.FC = () => {
@@ -54,7 +55,7 @@ const Sidebar: React.FC = () => {
             onClick={() => setIsCollapsed(!isCollapsed)}
             className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
           >
-            <Menu className="w-5 h-5" />
+            {isCollapsed ? <Menu className="w-5 h-5" /> : <X className="w-5 h-5" />}
           </button>
         </div>
       </div>
