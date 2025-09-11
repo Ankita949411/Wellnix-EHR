@@ -11,6 +11,10 @@ import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import Dashboard from "./Pages/Dashboard";
 import UserList from "./Pages/UserList";
+import PatientList from "./Pages/PatientList";
+import AddPatient from "./Pages/AddPatient";
+import EditPatient from "./Pages/EditPatient";
+import ViewPatient from "./Pages/ViewPatient";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +37,26 @@ const App = () => (
             <Route path="/users" element={
               <ProtectedRoute requireAdmin>
                 <UserList />
+              </ProtectedRoute>
+            } />
+            <Route path="/patients" element={
+              <ProtectedRoute>
+                <PatientList />
+              </ProtectedRoute>
+            } />
+            <Route path="/patients/add" element={
+              <ProtectedRoute>
+                <AddPatient />
+              </ProtectedRoute>
+            } />
+            <Route path="/patients/edit/:id" element={
+              <ProtectedRoute>
+                <EditPatient />
+              </ProtectedRoute>
+            } />
+            <Route path="/patients/:id" element={
+              <ProtectedRoute>
+                <ViewPatient />
               </ProtectedRoute>
             } />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

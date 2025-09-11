@@ -4,6 +4,7 @@ import { JwtModule } from "@nestjs/jwt";
 import { PassportModule } from "@nestjs/passport";
 import { APP_GUARD } from "@nestjs/core";
 import { User } from "./user/user.entity";
+import { Patient } from "./patient/patient.entity";
 import { UserService } from "./user/user.service";
 import { UserController } from "./user/user.controller";
 import * as dotenv from "dotenv";
@@ -13,6 +14,7 @@ import { JwtStrategy } from "./auth/jwt.strategy";
 import { GlobalAuthGuard } from "./auth/global-auth.guard";
 import { RolesGuard } from "./user/roles.guard";
 import { Reflector } from "@nestjs/core";
+import { PatientModule } from "./patient/patient.module";
 dotenv.config();
 
 @Module({
@@ -27,11 +29,12 @@ dotenv.config();
       autoLoadEntities: true,
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, Patient]),
+    PatientModule,
     PassportModule,
     JwtModule.register({
-      secret: process.env.JWT_SECRET || 'defaultSecret',
-      signOptions: { expiresIn: '24h' },
+      secret: process.env.JWT_SECRET || "defaultSecret",
+      signOptions: { expiresIn: "24h" },
     }),
   ],
   controllers: [UserController, AuthController],

@@ -13,7 +13,8 @@ import {
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import UserModal from "../components/users/UserModal";
-import PageNavigation from "../components/navigation/PageNavigation";
+import DeleteModal from "../components/ui/DeleteModal";
+import Sidebar from "../components/layout/Sidebar";
 
 const UserList: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -30,6 +31,8 @@ const UserList: React.FC = () => {
   );
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [deleteModal, setDeleteModal] = useState({ isOpen: false, user: null as User | null });
+  const [deleteLoading, setDeleteLoading] = useState(false);
 
   const fetchUsers = async () => {
     try {
@@ -60,15 +63,22 @@ const UserList: React.FC = () => {
     setPage(validPage);
   };
 
-  const handleDelete = async (id: number) => {
-    if (window.confirm("Are you sure you want to deactivate this user?")) {
-      try {
-        await userService.deleteUser(id);
-        fetchUsers();
-      } catch (error: any) {
-        setError(error.message || "Failed to delete user");
-        console.error("Error deleting user:", error);
-      }
+  const handleDeleteClick = (user: User) => {
+    setDeleteModal({ isOpen: true, user });
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (!deleteModal.user) return;
+    
+    setDeleteLoading(true);
+    try {
+      await userService.deleteUser(deleteModal.user.id);
+      fetchUsers();
+      setDeleteModal({ isOpen: false, user: null });
+    } catch (error: any) {
+      setError(error.message || "Failed to delete user");
+    } finally {
+      setDeleteLoading(false);
     }
   };
 
@@ -113,17 +123,17 @@ const UserList: React.FC = () => {
   const getRoleBadge = (role: string) => {
     const colors = {
       admin:
-        "bg-gradient-to-r from-red-100 to-red-200 text-red-800 border border-red-200",
+        "bg-gradient-to-r from-red-100 via-red-200 to-red-300 text-red-900 border-2 border-red-300 shadow-md",
       super_admin:
-        "bg-gradient-to-r from-purple-100 to-purple-200 text-purple-800 border border-purple-200",
+        "bg-gradient-to-r from-purple-100 via-purple-200 to-purple-300 text-purple-900 border-2 border-purple-300 shadow-md",
       doctor:
-        "bg-gradient-to-r from-blue-100 to-blue-200 text-blue-800 border border-blue-200",
+        "bg-gradient-to-r from-blue-100 via-blue-200 to-blue-300 text-blue-900 border-2 border-blue-300 shadow-md",
       nurse:
-        "bg-gradient-to-r from-green-100 to-green-200 text-green-800 border border-green-200",
+        "bg-gradient-to-r from-green-100 via-green-200 to-green-300 text-green-900 border-2 border-green-300 shadow-md",
     };
     return (
       colors[role as keyof typeof colors] ||
-      "bg-gradient-to-r from-gray-100 to-gray-200 text-gray-800 border border-gray-200"
+      "bg-gradient-to-r from-gray-100 via-gray-200 to-gray-300 text-gray-900 border-2 border-gray-300 shadow-md"
     );
   };
 
@@ -139,8 +149,10 @@ const UserList: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 p-6">
-      <div className="max-w-7xl mx-auto">
+    <div className="flex min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+      <Sidebar />
+      <div className="flex-1 p-6">
+        <div className="max-w-7xl mx-auto">
         <div className="mb-8">
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-6">
             <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-2">
@@ -188,10 +200,10 @@ const UserList: React.FC = () => {
           </div>
         )}
 
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+        <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-xl transition-shadow duration-300">
           <Table>
             <TableHeader>
-              <TableRow className="bg-gradient-to-r from-gray-50 to-blue-50 border-b border-gray-200">
+              <TableRow className="bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 border-b border-blue-200">
                 <TableHead className="font-semibold text-gray-700">
                   Name
                 </TableHead>
@@ -222,7 +234,7 @@ const UserList: React.FC = () => {
                 >
                   <TableCell>
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full flex items-center justify-center text-white font-semibold">
+                      <div className="w-12 h-12 bg-gradient-to-br from-blue-400 via-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg ring-2 ring-blue-200">
                         {user.firstName.charAt(0)}
                         {user.lastName.charAt(0)}
                       </div>
@@ -234,7 +246,7 @@ const UserList: React.FC = () => {
                   <TableCell className="text-gray-600">{user.email}</TableCell>
                   <TableCell>
                     <span
-                      className={`px-3 py-1 text-xs font-semibold rounded-full ${getRoleBadge(
+                      className={`px-4 py-2 text-xs font-bold rounded-full shadow-sm ${getRoleBadge(
                         user.role
                       )}`}
                     >
@@ -253,25 +265,25 @@ const UserList: React.FC = () => {
                         variant="outline"
                         size="sm"
                         onClick={() => handleViewUser(user.id)}
-                        className="hover:bg-blue-50 hover:border-blue-300"
+                        className="hover:bg-blue-50 hover:border-blue-400 hover:shadow-md transition-all duration-200 group"
                       >
-                        <Eye className="w-4 h-4 text-blue-600" />
+                        <Eye className="w-4 h-4 text-blue-600 group-hover:scale-110 transition-transform" />
                       </Button>
                       <Button
                         variant="outline"
                         size="sm"
                         onClick={() => handleEditUser(user)}
-                        className="hover:bg-green-50 hover:border-green-300"
+                        className="hover:bg-green-50 hover:border-green-400 hover:shadow-md transition-all duration-200 group"
                       >
-                        <Edit className="w-4 h-4 text-green-600" />
+                        <Edit className="w-4 h-4 text-green-600 group-hover:scale-110 transition-transform" />
                       </Button>
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => handleDelete(user.id)}
-                        className="hover:bg-red-50 hover:border-red-300 text-red-600 hover:text-red-700"
+                        onClick={() => handleDeleteClick(user)}
+                        className="hover:bg-red-50 hover:border-red-400 text-red-600 hover:text-red-700 hover:shadow-md transition-all duration-200 group"
                       >
-                        <Trash2 className="w-4 h-4" />
+                        <Trash2 className="w-4 h-4 group-hover:scale-110 transition-transform" />
                       </Button>
                     </div>
                   </TableCell>
@@ -318,7 +330,16 @@ const UserList: React.FC = () => {
           user={selectedUser}
           mode={modalMode}
         />
-        <PageNavigation backPath="/dashboard" />
+        
+        <DeleteModal
+          isOpen={deleteModal.isOpen}
+          onClose={() => setDeleteModal({ isOpen: false, user: null })}
+          onConfirm={handleDeleteConfirm}
+          title="Delete User"
+          message={`Are you sure you want to deactivate ${deleteModal.user?.firstName} ${deleteModal.user?.lastName}? This action cannot be undone.`}
+          loading={deleteLoading}
+        />
+        </div>
       </div>
     </div>
   );

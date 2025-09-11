@@ -71,13 +71,13 @@ const UserModal: React.FC<UserModalProps> = ({ isOpen, onClose, onSave, user, mo
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-xl shadow-2xl w-full max-w-md mx-4">
-        <div className="flex items-center justify-between p-6 border-b border-gray-200">
+      <div className="bg-gradient-to-br from-white to-blue-50 rounded-xl shadow-2xl w-full max-w-lg mx-4 border border-blue-100">
+        <div className="flex items-center justify-between p-6 border-b-2 border-blue-200 bg-gradient-to-r from-blue-50 to-indigo-50">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-              <UserIcon className="w-5 h-5 text-blue-600" />
+            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center shadow-lg">
+              <UserIcon className="w-6 h-6 text-white" />
             </div>
-            <h2 className="text-xl font-bold text-gray-900">
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
               {mode === 'create' ? 'Create User' : mode === 'edit' ? 'Edit User' : 'View User'}
             </h2>
           </div>
@@ -86,7 +86,7 @@ const UserModal: React.FC<UserModalProps> = ({ isOpen, onClose, onSave, user, mo
           </Button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-6 space-y-4">
+        <form onSubmit={handleSubmit} className="p-8 space-y-6">
           <div className="grid grid-cols-2 gap-4">
             <div>
               <Label htmlFor="firstName">First Name</Label>
@@ -96,6 +96,7 @@ const UserModal: React.FC<UserModalProps> = ({ isOpen, onClose, onSave, user, mo
                 onChange={(e) => setFormData(prev => ({ ...prev, firstName: e.target.value }))}
                 disabled={mode === 'view'}
                 required
+                className="h-12 border-2 border-gray-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-200 rounded-lg transition-all duration-200"
               />
             </div>
             <div>
@@ -142,7 +143,7 @@ const UserModal: React.FC<UserModalProps> = ({ isOpen, onClose, onSave, user, mo
               value={formData.role}
               onChange={(e) => setFormData(prev => ({ ...prev, role: e.target.value as UserRole }))}
               disabled={mode === 'view'}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full h-12 px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition-all duration-200 bg-white"
               required
             >
               <option value={UserRole.DOCTOR}>Doctor</option>
@@ -177,7 +178,7 @@ const UserModal: React.FC<UserModalProps> = ({ isOpen, onClose, onSave, user, mo
               <Button type="button" variant="outline" onClick={onClose} className="flex-1">
                 Cancel
               </Button>
-              <Button type="submit" className="flex-1 flex items-center gap-2" disabled={loading}>
+              <Button type="submit" className="flex-1 flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105" disabled={loading}>
                 <Save className="w-4 h-4" />
                 {loading ? 'Saving...' : mode === 'create' ? 'Create' : 'Update'}
               </Button>

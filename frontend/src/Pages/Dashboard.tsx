@@ -62,7 +62,10 @@ const Dashboard: React.FC = () => {
               </div>
             )}
 
-            <div className="group bg-white rounded-xl shadow-lg border border-gray-100 p-6 cursor-pointer hover:shadow-xl hover:scale-105 transition-all duration-300">
+            <div 
+              className="group bg-white rounded-xl shadow-lg border border-gray-100 p-6 cursor-pointer hover:shadow-xl hover:scale-105 transition-all duration-300"
+              onClick={() => navigate("/patients")}
+            >
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
                   <Stethoscope className="w-6 h-6 text-white" />
@@ -75,7 +78,7 @@ const Dashboard: React.FC = () => {
                 View and manage patient records
               </p>
               <div className="mt-4 text-green-600 font-medium text-sm group-hover:text-green-700">
-                Coming soon →
+                Click to manage →
               </div>
             </div>
 
