@@ -20,7 +20,7 @@ export const userService = {
       limit: validLimit.toString(),
       ...(search && search.trim() && { search: search.trim() }),
     });
-    return apiService.post(`/users/list`, params);
+    return apiService.post(`/users/list?${params.toString()}`, {});
   },
 
   getUserById: (id: number): Promise<ApiResponse<User>> => {

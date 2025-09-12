@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Search, Trash2, Eye, Plus, Edit } from "lucide-react";
 import { userService } from "../services/userService";
 import { User, UserListResponse, CreateUserDto } from "../types/user";
@@ -22,6 +22,7 @@ const UserList: React.FC = () => {
 
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [total, setTotal] = useState<number>(0);
@@ -33,12 +34,13 @@ const UserList: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [deleteModal, setDeleteModal] = useState({ isOpen: false, user: null as User | null });
   const [deleteLoading, setDeleteLoading] = useState(false);
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   const fetchUsers = async () => {
     try {
       setLoading(true);
       setError(null);
-      const response = await userService.getUsers(page, 10, search);
+      const response = await userService.getUsers(page, 10, debouncedSearch);
       setUsers(response.data.users);
       setTotalPages(response.data.totalPages);
       setTotal(response.data.total);
@@ -50,8 +52,15 @@ const UserList: React.FC = () => {
     }
   };
   useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [search]);
+
+  useEffect(() => {
     fetchUsers();
-  }, [page, search]);
+  }, [page, debouncedSearch]);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -169,6 +178,7 @@ const UserList: React.FC = () => {
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-400 w-5 h-5" />
                   <Input
+                    ref={searchInputRef}
                     type="text"
                     placeholder="Search by name..."
                     value={search}

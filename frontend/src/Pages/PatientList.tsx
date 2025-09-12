@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Search, Trash2, Eye, Plus, Edit } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { patientService } from "../services/patientService";
@@ -21,18 +21,20 @@ const PatientList: React.FC = () => {
   const [patients, setPatients] = useState<Patient[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [total, setTotal] = useState<number>(0);
   const [error, setError] = useState<string | null>(null);
   const [deleteModal, setDeleteModal] = useState({ isOpen: false, patient: null as Patient | null });
   const [deleteLoading, setDeleteLoading] = useState(false);
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   const fetchPatients = async () => {
     try {
       setLoading(true);
       setError(null);
-      const response = await patientService.getPatients(page, 10, search);
+      const response = await patientService.getPatients(page, 10, debouncedSearch);
       setPatients(response.data.patients);
       setTotalPages(response.data.totalPages);
       setTotal(response.data.total);
@@ -45,8 +47,15 @@ const PatientList: React.FC = () => {
   };
 
   useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [search]);
+
+  useEffect(() => {
     fetchPatients();
-  }, [page, search]);
+  }, [page, debouncedSearch]);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -125,6 +134,7 @@ const PatientList: React.FC = () => {
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-green-400 w-5 h-5" />
                     <Input
+                      ref={searchInputRef}
                       type="text"
                       placeholder="Search by name or patient ID..."
                       value={search}
