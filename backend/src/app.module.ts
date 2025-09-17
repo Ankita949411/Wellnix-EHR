@@ -15,6 +15,7 @@ import { GlobalAuthGuard } from "./auth/global-auth.guard";
 import { RolesGuard } from "./user/roles.guard";
 import { Reflector } from "@nestjs/core";
 import { PatientModule } from "./patient/patient.module";
+import { EncounterModule } from "./encounter/encounter.module";
 dotenv.config();
 
 @Module({
@@ -31,6 +32,7 @@ dotenv.config();
     }),
     TypeOrmModule.forFeature([User, Patient]),
     PatientModule,
+    EncounterModule,
     PassportModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET || "defaultSecret",

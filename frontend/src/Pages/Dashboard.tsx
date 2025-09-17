@@ -1,7 +1,7 @@
 import React from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { Users, Calendar, FileText, Settings, Stethoscope } from "lucide-react";
+import { Users, Calendar, FileText, Settings, Stethoscope, ClipboardList } from "lucide-react";
 import PageNavigation from "../components/navigation/PageNavigation";
 import Sidebar from "../components/layout/Sidebar";
 
@@ -78,6 +78,26 @@ const Dashboard: React.FC = () => {
                 View and manage patient records
               </p>
               <div className="mt-4 text-green-600 font-medium text-sm group-hover:text-green-700">
+                Click to manage →
+              </div>
+            </div>
+
+            <div 
+              className="group bg-white rounded-xl shadow-lg border border-gray-100 p-6 cursor-pointer hover:shadow-xl hover:scale-105 transition-all duration-300"
+              onClick={() => navigate("/encounters")}
+            >
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <ClipboardList className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 group-hover:text-purple-600 transition-colors">
+                  Encounters
+                </h3>
+              </div>
+              <p className="text-gray-600 leading-relaxed">
+                Manage patient encounters and visits
+              </p>
+              <div className="mt-4 text-purple-600 font-medium text-sm group-hover:text-purple-700">
                 Click to manage →
               </div>
             </div>

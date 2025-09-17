@@ -11,7 +11,8 @@ import {
   Home,
   Activity,
   Menu,
-  X
+  X,
+  ClipboardList
 } from 'lucide-react';
 
 const Sidebar: React.FC = () => {
@@ -29,6 +30,7 @@ const Sidebar: React.FC = () => {
     { icon: Home, label: 'Dashboard', path: '/dashboard', show: true },
     { icon: Users, label: 'User Management', path: '/users', show: isAdmin },
     { icon: Stethoscope, label: 'Patients', path: '/patients', show: true },
+    { icon: ClipboardList, label: 'Encounters', path: '/encounters', show: true },
     { icon: Calendar, label: 'Appointments', path: '/appointments', show: true },
     { icon: FileText, label: 'Reports', path: '/reports', show: true },
     { icon: Settings, label: 'Settings', path: '/settings', show: true },

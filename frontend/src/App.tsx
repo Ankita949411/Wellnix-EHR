@@ -15,6 +15,10 @@ import PatientList from "./Pages/PatientList";
 import AddPatient from "./Pages/AddPatient";
 import EditPatient from "./Pages/EditPatient";
 import ViewPatient from "./Pages/ViewPatient";
+import EncounterList from "./Pages/EncounterList";
+import AddEncounter from "./Pages/AddEncounter";
+import ViewEncounter from "./Pages/ViewEncounter";
+import EditEncounter from "./Pages/EditEncounter";
 
 const queryClient = new QueryClient();
 
@@ -57,6 +61,26 @@ const App = () => (
             <Route path="/patients/:id" element={
               <ProtectedRoute>
                 <ViewPatient />
+              </ProtectedRoute>
+            } />
+            <Route path="/encounters" element={
+              <ProtectedRoute>
+                <EncounterList />
+              </ProtectedRoute>
+            } />
+            <Route path="/encounters/add" element={
+              <ProtectedRoute>
+                <AddEncounter />
+              </ProtectedRoute>
+            } />
+            <Route path="/encounters/:id" element={
+              <ProtectedRoute>
+                <ViewEncounter />
+              </ProtectedRoute>
+            } />
+            <Route path="/encounters/edit/:id" element={
+              <ProtectedRoute>
+                <EditEncounter />
               </ProtectedRoute>
             } />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
