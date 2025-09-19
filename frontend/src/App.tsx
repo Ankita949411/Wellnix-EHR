@@ -19,6 +19,15 @@ import EncounterList from "./Pages/EncounterList";
 import AddEncounter from "./Pages/AddEncounter";
 import ViewEncounter from "./Pages/ViewEncounter";
 import EditEncounter from "./Pages/EditEncounter";
+import AppointmentList from "./Pages/AppointmentList";
+import AddAppointment from "./Pages/AddAppointment";
+import ViewAppointment from "./Pages/ViewAppointment";
+import EditAppointment from "./Pages/EditAppointment";
+import MedicationMasterList from "./Pages/MedicationMasterList";
+import PatientMedicationList from "./Pages/PatientMedicationList";
+import AddMedicationMaster from "./Pages/AddMedicationMaster";
+import ViewMedicationMaster from "./Pages/ViewMedicationMaster";
+import AddPatientMedication from "./Pages/AddPatientMedication";
 
 const queryClient = new QueryClient();
 
@@ -81,6 +90,51 @@ const App = () => (
             <Route path="/encounters/edit/:id" element={
               <ProtectedRoute>
                 <EditEncounter />
+              </ProtectedRoute>
+            } />
+            <Route path="/appointments" element={
+              <ProtectedRoute>
+                <AppointmentList />
+              </ProtectedRoute>
+            } />
+            <Route path="/appointments/add" element={
+              <ProtectedRoute>
+                <AddAppointment />
+              </ProtectedRoute>
+            } />
+            <Route path="/appointments/:id" element={
+              <ProtectedRoute>
+                <ViewAppointment />
+              </ProtectedRoute>
+            } />
+            <Route path="/appointments/edit/:id" element={
+              <ProtectedRoute>
+                <EditAppointment />
+              </ProtectedRoute>
+            } />
+            <Route path="/medications" element={
+              <ProtectedRoute>
+                <MedicationMasterList />
+              </ProtectedRoute>
+            } />
+            <Route path="/medications/patient/:patientId" element={
+              <ProtectedRoute>
+                <PatientMedicationList />
+              </ProtectedRoute>
+            } />
+            <Route path="/medications/master/add" element={
+              <ProtectedRoute>
+                <AddMedicationMaster />
+              </ProtectedRoute>
+            } />
+            <Route path="/medications/master/:id" element={
+              <ProtectedRoute>
+                <ViewMedicationMaster />
+              </ProtectedRoute>
+            } />
+            <Route path="/medications/patient/:patientId/add" element={
+              <ProtectedRoute>
+                <AddPatientMedication />
               </ProtectedRoute>
             } />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

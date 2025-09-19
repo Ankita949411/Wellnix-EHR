@@ -33,6 +33,9 @@ export class Encounter {
   @Column({ nullable: true })
   providerId: number;
 
+  @Column({ nullable: true })
+  appointmentId: string;
+
   // Relationship to Patient entity - who is being treated
   @ManyToOne(() => Patient)
   @JoinColumn({ name: "patientId" })

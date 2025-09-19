@@ -1,7 +1,7 @@
 import React from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { Users, Calendar, FileText, Settings, Stethoscope, ClipboardList } from "lucide-react";
+import { Users, Calendar, FileText, Settings, Stethoscope, ClipboardList, Pill } from "lucide-react";
 import PageNavigation from "../components/navigation/PageNavigation";
 import Sidebar from "../components/layout/Sidebar";
 
@@ -102,20 +102,43 @@ const Dashboard: React.FC = () => {
               </div>
             </div>
 
-            <div className="group bg-white rounded-xl shadow-lg border border-gray-100 p-6 cursor-pointer hover:shadow-xl hover:scale-105 transition-all duration-300">
+            <div 
+              className="group bg-white rounded-xl shadow-lg border border-gray-100 p-6 cursor-pointer hover:shadow-xl hover:scale-105 transition-all duration-300"
+              onClick={() => navigate("/appointments")}
+            >
               <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-orange-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
                   <Calendar className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
+                <h3 className="text-xl font-bold text-gray-900 group-hover:text-orange-600 transition-colors">
                   Appointments
                 </h3>
               </div>
               <p className="text-gray-600 leading-relaxed">
                 Schedule and manage appointments
               </p>
-              <div className="mt-4 text-blue-600 font-medium text-sm group-hover:text-blue-700">
-                Coming soon →
+              <div className="mt-4 text-orange-600 font-medium text-sm group-hover:text-orange-700">
+                Click to manage →
+              </div>
+            </div>
+
+            <div 
+              className="group bg-white rounded-xl shadow-lg border border-gray-100 p-6 cursor-pointer hover:shadow-xl hover:scale-105 transition-all duration-300"
+              onClick={() => navigate("/medications")}
+            >
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-teal-400 to-teal-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <Pill className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 group-hover:text-teal-600 transition-colors">
+                  Medications
+                </h3>
+              </div>
+              <p className="text-gray-600 leading-relaxed">
+                Manage medication formulary and prescriptions
+              </p>
+              <div className="mt-4 text-teal-600 font-medium text-sm group-hover:text-teal-700">
+                Click to manage →
               </div>
             </div>
 

@@ -16,6 +16,8 @@ import { RolesGuard } from "./user/roles.guard";
 import { Reflector } from "@nestjs/core";
 import { PatientModule } from "./patient/patient.module";
 import { EncounterModule } from "./encounter/encounter.module";
+import { AppointmentModule } from "./appointment/appointment.module";
+import { MedicationModule } from "./medication/medication.module";
 dotenv.config();
 
 @Module({
@@ -33,6 +35,8 @@ dotenv.config();
     TypeOrmModule.forFeature([User, Patient]),
     PatientModule,
     EncounterModule,
+    AppointmentModule,
+    MedicationModule,
     PassportModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET || "defaultSecret",

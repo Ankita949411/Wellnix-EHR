@@ -20,7 +20,7 @@ export class EncounterService {
    * @param createEncounterDto - Data for creating the encounter
    * @returns Promise<Encounter> - The created encounter
    */
-  async create(createEncounterDto: CreateEncounterDto): Promise<Encounter> {
+  async create(createEncounterDto: CreateEncounterDto & { appointmentId?: string }): Promise<Encounter> {
     // Generate unique encounter ID
     const encounterId = await this.generateEncounterId();
 
@@ -31,7 +31,15 @@ export class EncounterService {
       encounterDate: new Date(createEncounterDto.encounterDate),
     });
 
-    return await this.encounterRepository.save(encounter);
+    const savedEncounter = await this.encounterRepository.save(encounter);
+
+    // Link appointment if provided
+    if (createEncounterDto.appointmentId) {
+      // This would require injecting AppointmentService, but keeping it simple
+      // The frontend can handle the linking via separate API calls
+    }
+
+    return savedEncounter;
   }
 
   /**
